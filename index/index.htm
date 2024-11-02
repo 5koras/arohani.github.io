@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arohani</title>
+    <style>
+        @font-face {
+            font-family: 'BMJUA';
+            src: url('font/BMJUA_ttf.ttf') format('truetype');
+        }
+
+        body {
+            font-family: 'BMJUA', sans-serif;
+            background-color: #1c1c1c;
+            color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            font-size: 3em;
+            margin: 0;
+            padding: 0;
+            color: #ffcc00;
+        }
+        p {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+        #time {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+        audio {
+            display: none;
+        }
+        @keyframes tick {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+        .tick {
+            animation: tick 0.2s ease-in-out;
+        }
+        .copyright {
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #ffffff;
+        }
+        .creation-time {
+            font-size: 1em;
+            margin-top: 10px;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <h1>&lt; Arohani &gt;</h1>
+    <p>Created by Arohani</p>
+    <div id="time"></div>
+
+    <audio id="tickSound" src="sound/clock.wav" preload="auto"></audio>
+
+    <div class="copyright">Copyright (c) Arohani All rights reserved.</div>
+
+    <div class="creation-time">----------------------------------------------------------------------</div>
+    <div class="creation-time">Name creation time: 2020/02/15 21:00</div>
+    <div class="creation-time">YouTube creation time: 2024/11/02 15:10</div>
+
+    <script>
+        const startDate = new Date('2024-11-02T15:10:00');
+
+        function updateTime() {
+            const currentDate = new Date();
+            const timeDiff = currentDate - startDate;
+
+            const milliseconds = timeDiff;
+            const timeString = `${milliseconds} ms`;
+            document.getElementById('time').innerText = timeString;
+
+            const tickSound = document.getElementById('tickSound');
+            tickSound.play();
+
+            document.body.classList.add('tick');
+            setTimeout(() => {
+                document.body.classList.remove('tick');
+            }, 200);
+        }
+
+        setInterval(updateTime, 1);
+        updateTime();
+    </script>
+</body>
+</html>
